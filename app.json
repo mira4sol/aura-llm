@@ -1,40 +1,95 @@
 {
   "expo": {
-    "name": "my-expo-app",
-    "slug": "my-expo-app",
+    "name": "Aura LLM",
+    "slug": "aura-os",
     "version": "1.0.0",
-
+    "scheme": "aura-os",
+    "newArchEnabled": true,
     "web": {
       "favicon": "./assets/favicon.png"
     },
-
     "experiments": {
       "tsconfigPaths": true
     },
-
     "plugins": [
       [
         "expo-splash-screen",
         {
           "image": "./assets/splash.png",
-          "backgroundColor": "#ffffff"
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#13121c"
         }
-      ]
+      ],
+      "expo-router",
+      "expo-dev-client",
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "deploymentTarget": "16.4"
+          },
+          "android": {
+            "minSdkVersion": 28,
+            "compileSdkVersion": 36,
+            "targetSdkVersion": 36,
+            "buildArchs": ["arm64-v8a"]
+          }
+        }
+      ],
+      "expo-sqlite",
+      "expo-image",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Aura reads photos you attach so an on-device vision model can analyze them. Nothing leaves your phone.",
+          "cameraPermission": "Aura uses the camera to capture images for on-device analysis."
+        }
+      ],
+      "@kesha-antonov/react-native-background-downloader",
+      "react-native-notify-kit",
+      [
+        "react-native-audio-api",
+        {
+          "iosBackgroundMode": false
+        }
+      ],
+      "./plugins/withAuraNative"
     ],
-
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-
-    "userInterfaceStyle": "light",
-
+    "userInterfaceStyle": "dark",
+    "backgroundColor": "#13121c",
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "dev.micro1.aura",
+      "buildNumber": "1",
+      "infoPlist": {
+        "NSMicrophoneUsageDescription": "Aura transcribes your voice entirely on-device.",
+        "UIBackgroundModes": ["fetch", "processing"],
+        "BGTaskSchedulerPermittedIdentifiers": ["dev.micro1.aura.download-resume"]
+      },
+      "entitlements": {
+        "com.apple.developer.kernel.extended-virtual-addressing": true,
+        "com.apple.developer.kernel.increased-memory-limit": true
+      }
     },
     "android": {
+      "package": "dev.micro1.aura",
+      "versionCode": 1,
+      "permissions": [
+        "android.permission.INTERNET",
+        "android.permission.ACCESS_NETWORK_STATE",
+        "android.permission.POST_NOTIFICATIONS",
+        "android.permission.FOREGROUND_SERVICE",
+        "android.permission.FOREGROUND_SERVICE_DATA_SYNC",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.WAKE_LOCK"
+      ],
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#13121c"
       }
     }
   }

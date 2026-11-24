@@ -15,6 +15,9 @@ web-build/
 ios
 android
 
+# Local IDE / MCP configs (may contain API keys)
+.cursor/
+
 # macOS
 .DS_Store
 
