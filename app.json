@@ -51,7 +51,9 @@
       [
         "react-native-audio-api",
         {
-          "iosBackgroundMode": false
+          "iosBackgroundMode": false,
+          "androidForegroundService": false,
+          "androidPermissions": []
         }
       ],
       "./plugins/withAuraNative"
