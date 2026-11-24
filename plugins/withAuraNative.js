@@ -26,6 +26,27 @@ function withAuraAndroidManifest(config) {
       manifest.$['xmlns:tools'] = 'http://schemas.android.com/tools';
     }
 
+    // Mark non-essential hardware features as optional for broad Play Store availability
+    manifest['uses-feature'] = manifest['uses-feature'] || [];
+    const ensureOptionalFeature = (name) => {
+      const existing = manifest['uses-feature'].find((el) => el.$?.['android:name'] === name);
+      if (existing) {
+        existing.$['android:required'] = 'false';
+      } else {
+        manifest['uses-feature'].push({
+          $: {
+            'android:name': name,
+            'android:required': 'false',
+          },
+        });
+      }
+    };
+    ensureOptionalFeature('android.hardware.screen.portrait');
+    ensureOptionalFeature('android.hardware.wifi');
+    ensureOptionalFeature('android.hardware.microphone');
+    ensureOptionalFeature('android.hardware.camera');
+    ensureOptionalFeature('android.hardware.camera.autofocus');
+
     app.$['android:hardwareAccelerated'] = 'true';
     app.$['android:largeHeap'] = 'true';
 
